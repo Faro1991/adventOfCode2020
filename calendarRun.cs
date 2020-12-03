@@ -16,6 +16,9 @@ namespace adventOfCode2020
             day3 thirdDay = new day3();
             thirdDay.dayRun(3, @"Day3\inputDay3.txt");
 
+            day4 fourthDay = new day4();
+            fourthDay.dayRun(4, @"Day4\inputDay4.txt");
+
         }
 
 
