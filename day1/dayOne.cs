@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace adventOfCode2020
-{
-    class day1
-    {
+namespace adventOfCode2020 {
+    class day1 : dayBase {
 
-        private long partOne(List<string> input) {
+        public override long partOne(List<string> input) {
 
             int num1 = 0;
             int num2 = 0;
@@ -38,7 +36,7 @@ namespace adventOfCode2020
 
         }
 
-        private long partTwo(List<string> input) {
+        public override long partTwo(List<string> input) {
 
             int num1 = 0;
             int num2 = 0;
@@ -88,29 +86,5 @@ namespace adventOfCode2020
 
         }
 
-        public void day1Run()
-        {
-
-            lineReader read = new lineReader();
-            resultWriter write = new resultWriter();
-            performanceTime timer = new performanceTime();
-
-            string text = System.IO.File.ReadAllText(@"Day1\inputDay1.txt");
-            List<string> items = read.gatherLines(text);
-
-            TimeSpan timer1 = timer.measuredTime(() => partOne(items));
-            TimeSpan timer2 = timer.measuredTime(() => partTwo(items));
-
-            long result = partOne(items);
-            long resultPartTwo = partTwo(items);
-
-            write.timesTaken.Add(timer1);
-            write.timesTaken.Add(timer2);
-            write.partResults.Add("part one", result.ToString());
-            write.partResults.Add("Part two", resultPartTwo.ToString());
-
-            write.writeResults(1);
-
-        }
     }
 }

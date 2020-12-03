@@ -8,13 +8,13 @@ namespace adventOfCode2020
         static void Main() {
 
             day1 firstDay = new day1();
-            firstDay.day1Run();
+            firstDay.dayRun(1, @"Day1\inputDay1.txt");
 
             day2 secondDay = new day2();
-            secondDay.day2Run();
+            secondDay.dayRun(2, @"Day2\inputDay2.txt");
 
             day3 thirdDay = new day3();
-            thirdDay.day3Run();
+            thirdDay.dayRun(3, @"Day3\inputDay3.txt");
 
         }
 

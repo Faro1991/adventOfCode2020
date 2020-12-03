@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace adventOfCode2020
-{
+namespace adventOfCode2020 {
 
-    class day2
-    {
+    class day2 : dayBase {
 
-        private int partOne(List<string> input) {
+        public override long partOne(List<string> input) {
 
-            int counter = 0;
+            long counter = 0;
 
             foreach (string line in input) {
 
@@ -38,9 +36,9 @@ namespace adventOfCode2020
 
         }
 
-        private int partTwo(List<string> input){
+        public override long partTwo(List<string> input){
 
-            int counter = 0;
+            long counter = 0;
 
             foreach (string line in input) {
 
@@ -75,31 +73,6 @@ namespace adventOfCode2020
             }
 
             return counter;
-
-        }
-
-        public void day2Run() {
-
-            lineReader read = new lineReader();
-            resultWriter write = new resultWriter();
-            performanceTime timer = new performanceTime();
-
-            string text = System.IO.File.ReadAllText(@"day2\inputDay2.txt");
-            List<string> items = read.gatherLines(text);
-
-            TimeSpan timer1 = timer.measuredTime(() => partOne(items));
-            TimeSpan timer2 = timer.measuredTime(() => partTwo(items));
-
-            int result = partOne(items);
-            int resultPartTwo = partTwo(items);
-
-            write.timesTaken.Add(timer1);
-            write.timesTaken.Add(timer2);
-            write.partResults.Add("part one", result.ToString());
-            write.partResults.Add("Part two", resultPartTwo.ToString());
-
-
-            write.writeResults(2);
 
         }
 
