@@ -39,17 +39,20 @@ namespace adventOfCode2020 {
 
             return result;
 
-        } 
+        }
 
         private bool validateFields(passport input) {
 
+
             bool hasError = false;
             List<string> validEyeColors = new List<string>(new string[] {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"});
-            string hgtMatch = "\\d+(in|cm)";
-            string hclMatch = "\\#[a-f0-9]{6}";
-            string pidMatch = "\\d{9}";
+            string hgtMatch = @"^\d+(in|cm)$";
+            string hclMatch = @"^\#[a-f0-9]{6}$";
+            string pidMatch = @"^\d{9}$";
 
-            foreach (KeyValuePair<string, string> field in input.getFields()) {
+            Dictionary<string, string> values = input.getFields();
+
+            foreach (KeyValuePair<string, string> field in values) {
 
                 long fieldVal = 0;
 
@@ -57,28 +60,28 @@ namespace adventOfCode2020 {
 
                     case "byr":
                         fieldVal = long.Parse(field.Value);
-                        if (!(fieldVal >= 1920 && fieldVal <=2002)) {
+                        if (!(fieldVal >= 1920 && fieldVal <=2002 && field.Value.Length == 4)) {
                             hasError = true;
                         }
                         break;
 
                     case "iyr":
                         fieldVal = long.Parse(field.Value);
-                        if (!(fieldVal >= 2010 && fieldVal <=2020)) {
+                        if (!(fieldVal >= 2010 && fieldVal <=2020 && field.Value.Length == 4)) {
                             hasError = true;
                         }
                         break;
 
                     case "eyr":
                         fieldVal = long.Parse(field.Value);
-                        if (!(fieldVal >= 2020 && fieldVal <=2030)) {
+                        if (!(fieldVal >= 2020 && fieldVal <=2030 && field.Value.Length == 4)) {
                             hasError = true;
                         }
                         break;
 
                     case "hgt":
                         Match hgtSuccess = Regex.Match(field.Value, hgtMatch);
-                        if (!hgtSuccess.Success) {
+                        if (hgtSuccess.Success) {
                             string unit = field.Value.Substring(field.Value.Length - 2, 2);
                             long value = long.Parse(field.Value.Substring(0, field.Value.Length -2));
                             switch (unit) {
@@ -111,8 +114,9 @@ namespace adventOfCode2020 {
                         break;
 
                     case "ecl":
+                        List<string> amountOfEcl = validEyeColors.FindAll(x => (x == field.Value));
                         bool hasValidEcl = validEyeColors.Contains(field.Value);
-                        if (!hasValidEcl) {
+                        if (!hasValidEcl || amountOfEcl.Count != 1) {
                             hasError = true;
                         }
                         break;
