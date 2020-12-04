@@ -54,7 +54,7 @@ namespace adventOfCode2020 {
 
             foreach (KeyValuePair<string, string> field in values) {
 
-                long fieldVal = long.Parse(field.Value);
+                long.TryParse(field.Value, out long fieldVal);
 
                 switch (field.Key) {
 
@@ -230,6 +230,18 @@ namespace adventOfCode2020 {
         }
 
         public override void dayRun(int day, string input) {
+
+            if (!System.IO.Directory.Exists("day" + day)) {
+
+                System.IO.Directory.CreateDirectory("day" + day);
+
+            }
+
+            if (!System.IO.File.Exists(input)) {
+
+                getInput(day);
+
+            }
 
             lineReader read = new lineReader();
             resultWriter write = new resultWriter();

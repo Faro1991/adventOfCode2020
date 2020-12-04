@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace adventOfCode2020
 {
@@ -9,7 +10,43 @@ namespace adventOfCode2020
         public abstract long partOne(List<string> input);
         public abstract long partTwo(List<string> input);
 
+        public virtual void getInput(int day) {
+
+            string filePath = "day" + day + @"\inputDay" + day + ".txt";
+
+            string domain = @".adventofcode.com";
+            string url = @"https://adventofcode.com/2020/day/" + day + @"/input";
+            string autcVal = System.IO.File.ReadAllText(@"cookie.autc");
+
+            HttpWebRequest download = (HttpWebRequest) WebRequest.Create(url);
+            Cookie authCookie = new Cookie("session", autcVal);
+            authCookie.Domain = domain;
+            download.CookieContainer = new CookieContainer(1);
+            download.CookieContainer.Add(authCookie);
+
+            WebResponse inputText = download.GetResponse();
+
+            string result = new System.IO.StreamReader(inputText.GetResponseStream()).ReadToEnd();
+
+            System.IO.File.WriteAllText(filePath, result);
+
+
+        }
+
         public virtual void dayRun(int day, string input) {
+
+            if (!System.IO.Directory.Exists("day" + day)) {
+
+                System.IO.Directory.CreateDirectory("day" + day);
+
+            }
+
+            if (!System.IO.File.Exists(input)) {
+
+                getInput(day);
+
+            }
+            
 
             lineReader read = new lineReader();
             resultWriter write = new resultWriter();
