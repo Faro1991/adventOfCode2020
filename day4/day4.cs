@@ -54,26 +54,24 @@ namespace adventOfCode2020 {
 
             foreach (KeyValuePair<string, string> field in values) {
 
-                long fieldVal = 0;
+                long fieldVal = long.Parse(field.Value);
 
                 switch (field.Key) {
 
                     case "byr":
-                        fieldVal = long.Parse(field.Value);
+                        
                         if (!(fieldVal >= 1920 && fieldVal <=2002 && field.Value.Length == 4)) {
                             hasError = true;
                         }
                         break;
 
                     case "iyr":
-                        fieldVal = long.Parse(field.Value);
                         if (!(fieldVal >= 2010 && fieldVal <=2020 && field.Value.Length == 4)) {
                             hasError = true;
                         }
                         break;
 
                     case "eyr":
-                        fieldVal = long.Parse(field.Value);
                         if (!(fieldVal >= 2020 && fieldVal <=2030 && field.Value.Length == 4)) {
                             hasError = true;
                         }
