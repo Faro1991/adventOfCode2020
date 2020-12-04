@@ -19,6 +19,9 @@ namespace adventOfCode2020
             day4 fourthDay = new day4();
             fourthDay.dayRun(4, @"Day4\inputDay4.txt");
 
+            day5 fifthDay = new day5();
+            fifthDay.dayRun(5, @"Day5\inputDay5.txt");
+
         }
 
 
