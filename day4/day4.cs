@@ -118,9 +118,6 @@ namespace adventOfCode2020 {
                         if (!Regex.IsMatch(field.Value, pidMatch)) {
                             hasError = true;
                         }
-                        else {
-                            hasError = false;
-                        }
                         break;
 
                     case "cid":
