@@ -18,18 +18,25 @@ namespace adventOfCode2020
             string url = @"https://adventofcode.com/2020/day/" + day + @"/input";
             string autcVal = System.IO.File.ReadAllText(@"cookie.autc");
 
-            HttpWebRequest download = (HttpWebRequest) WebRequest.Create(url);
-            Cookie authCookie = new Cookie("session", autcVal);
-            authCookie.Domain = domain;
-            download.CookieContainer = new CookieContainer(1);
-            download.CookieContainer.Add(authCookie);
+            try {
+                HttpWebRequest download = (HttpWebRequest) WebRequest.Create(url);
+                Cookie authCookie = new Cookie("session", autcVal);
+                authCookie.Domain = domain;
+                download.CookieContainer = new CookieContainer(1);
+                download.CookieContainer.Add(authCookie);
 
-            WebResponse inputText = download.GetResponse();
+                WebResponse inputText = download.GetResponse();
 
-            string result = new System.IO.StreamReader(inputText.GetResponseStream()).ReadToEnd();
+                string result = new System.IO.StreamReader(inputText.GetResponseStream()).ReadToEnd();
 
-            System.IO.File.WriteAllText(filePath, result);
+                System.IO.File.WriteAllText(filePath, result);
+            }
+            catch (WebException e) {
 
+                Console.WriteLine("File not (yet) found on server");
+                Console.WriteLine(e);
+
+            }
 
         }
 
@@ -52,21 +59,30 @@ namespace adventOfCode2020
             resultWriter write = new resultWriter();
             performanceTime timer = new performanceTime();
 
-            string text = System.IO.File.ReadAllText(input);
-            List<string> items = read.gatherLines(text);
+            try {
+                string text = System.IO.File.ReadAllText(input);
+                List<string> items = read.gatherLines(text);
 
-            TimeSpan timer1 = timer.measuredTime(() => partOne(items));
-            TimeSpan timer2 = timer.measuredTime(() => partTwo(items));
+                TimeSpan timer1 = timer.measuredTime(() => partOne(items));
+                TimeSpan timer2 = timer.measuredTime(() => partTwo(items));
 
-            long result = partOne(items);
-            long resultPartTwo = partTwo(items);
+                long result = partOne(items);
+                long resultPartTwo = partTwo(items);
 
-            write.timesTaken.Add(timer1);
-            write.timesTaken.Add(timer2);
-            write.partResults.Add("part one", result.ToString());
-            write.partResults.Add("Part two", resultPartTwo.ToString());
+                write.timesTaken.Add(timer1);
+                write.timesTaken.Add(timer2);
+                write.partResults.Add("part one", result.ToString());
+                write.partResults.Add("Part two", resultPartTwo.ToString());
 
-            write.writeResults(day);
+                write.writeResults(day);
+            }
+            catch (System.IO.FileNotFoundException e) {
+
+                Console.WriteLine("could not find file, skipping day " + day);
+                Console.WriteLine(e);
+
+            }
+            
 
         }
 

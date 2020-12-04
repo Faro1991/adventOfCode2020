@@ -247,25 +247,35 @@ namespace adventOfCode2020 {
             resultWriter write = new resultWriter();
             performanceTime timer = new performanceTime();
 
-            string text = System.IO.File.ReadAllText(input);
-            string[] lines = text.Split("\n");
+            try {
 
-            List<passport> passportData = gatherPassports(lines);
+                string text = System.IO.File.ReadAllText(input);
+                string[] lines = text.Split("\n");
 
-            string[] necessaryFields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
+                List<passport> passportData = gatherPassports(lines);
 
-            TimeSpan timer1 = timer.measuredTime(() => partOne(passportData,new List<string>(necessaryFields)));
-            TimeSpan timer2 = timer.measuredTime(() => partTwo(passportData,new List<string>(necessaryFields)));
+                string[] necessaryFields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
 
-            long result = partOne(passportData,new List<string>(necessaryFields));
-            long resultPartTwo = partTwo(passportData,new List<string>(necessaryFields));
+                TimeSpan timer1 = timer.measuredTime(() => partOne(passportData,new List<string>(necessaryFields)));
+                TimeSpan timer2 = timer.measuredTime(() => partTwo(passportData,new List<string>(necessaryFields)));
 
-            write.timesTaken.Add(timer1);
-            write.timesTaken.Add(timer2);
-            write.partResults.Add("part one", result.ToString());
-            write.partResults.Add("Part two", resultPartTwo.ToString());
+                long result = partOne(passportData,new List<string>(necessaryFields));
+                long resultPartTwo = partTwo(passportData,new List<string>(necessaryFields));
 
-            write.writeResults(day);
+                write.timesTaken.Add(timer1);
+                write.timesTaken.Add(timer2);
+                write.partResults.Add("part one", result.ToString());
+                write.partResults.Add("Part two", resultPartTwo.ToString());
+
+                write.writeResults(day);
+            
+            }
+            catch (System.IO.FileNotFoundException e) {
+
+                Console.WriteLine("could not find file, skipping day " + day);
+                Console.WriteLine(e);
+
+            }
 
         }
 
