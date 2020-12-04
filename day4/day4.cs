@@ -77,7 +77,8 @@ namespace adventOfCode2020 {
                         break;
 
                     case "hgt":
-                        if (Regex.IsMatch(field.Value, hgtMatch)) {
+                        Match hgtSuccess = Regex.Match(field.Value, hgtMatch);
+                        if (!hgtSuccess.Success) {
                             string unit = field.Value.Substring(field.Value.Length - 2, 2);
                             long value = long.Parse(field.Value.Substring(0, field.Value.Length -2));
                             switch (unit) {
@@ -103,19 +104,22 @@ namespace adventOfCode2020 {
                         break;
 
                     case "hcl":
-                        if (!Regex.IsMatch(field.Value, hclMatch)) {
+                        Match hclSuccess = Regex.Match(field.Value, hclMatch);
+                        if (!hclSuccess.Success) {
                             hasError = true;
                         }
                         break;
 
                     case "ecl":
-                        if (!validEyeColors.Contains(field.Value)) {
+                        bool hasValidEcl = validEyeColors.Contains(field.Value);
+                        if (!hasValidEcl) {
                             hasError = true;
                         }
                         break;
 
                     case "pid":
-                        if (!Regex.IsMatch(field.Value, pidMatch)) {
+                        Match pidSuccess = Regex.Match(field.Value, pidMatch);
+                        if (!pidSuccess.Success) {
                             hasError = true;
                         }
                         break;
@@ -207,7 +211,7 @@ namespace adventOfCode2020 {
                 }
                 else {
 
-                     passValid = false;
+                    passValid = false;
 
                 }
 
