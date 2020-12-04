@@ -43,40 +43,36 @@ namespace adventOfCode2020 {
 
         private bool validateFields(passport input) {
 
-            bool isValid = false;
+            bool hasError = false;
             List<string> validEyeColors = new List<string>(new string[] {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"});
             string hgtMatch = "\\d+(in|cm)";
-            string hclMatch = "\\#[a-z0-9]{6}";
+            string hclMatch = "\\#[a-f0-9]{6}";
             string pidMatch = "\\d{9}";
 
             foreach (KeyValuePair<string, string> field in input.getFields()) {
 
+                long fieldVal = 0;
+
                 switch (field.Key) {
 
                     case "byr":
-                        if (long.Parse(field.Value) >= 1920 && long.Parse(field.Value) <=2002) {
-                            isValid = true;
-                        }
-                        else {
-                            isValid = false;
+                        fieldVal = long.Parse(field.Value);
+                        if (!(fieldVal >= 1920 && fieldVal <=2002)) {
+                            hasError = true;
                         }
                         break;
 
                     case "iyr":
-                        if (long.Parse(field.Value) >= 2010 && long.Parse(field.Value) <=2020) {
-                            isValid = true;
-                        }
-                        else {
-                            isValid = false;
+                        fieldVal = long.Parse(field.Value);
+                        if (!(fieldVal >= 2010 && fieldVal <=2020)) {
+                            hasError = true;
                         }
                         break;
 
                     case "eyr":
-                        if (long.Parse(field.Value) >= 2020 && long.Parse(field.Value) <=2030) {
-                            isValid = true;
-                        }
-                        else {
-                            isValid = false;
+                        fieldVal = long.Parse(field.Value);
+                        if (!(fieldVal >= 2020 && fieldVal <=2030)) {
+                            hasError = true;
                         }
                         break;
 
@@ -87,70 +83,64 @@ namespace adventOfCode2020 {
                             switch (unit) {
 
                                 case "cm":
-                                    if (value >= 150 && value <= 192) {
-                                        isValid = true;
-                                    }
-                                    else {
-                                        isValid = false;
+                                    if (!(value >= 150 && value <= 192)) {
+                                        hasError = true;
                                     }
                                     break;
                                 
                                 case "in":
-                                    if (value >= 59 && value <= 76) {
-                                        isValid = true;
-                                    }
-                                    else {
-                                        isValid = false;
+                                    if (!(value >= 59 && value <= 76)) {
+                                        hasError = true;
                                     }
                                     break;
 
                                 default:
-                                    isValid = false;
+                                    hasError = true;
                                     break;
 
                             }
                         }
-                        else {
-                            isValid = false;
-                        }
                         break;
 
                     case "hcl":
-                        if (Regex.IsMatch(field.Value, hclMatch)) {
-                            isValid = true;
-                        }
-                        else {
-                            isValid = false;
+                        if (!Regex.IsMatch(field.Value, hclMatch)) {
+                            hasError = true;
                         }
                         break;
 
                     case "ecl":
-                        if (validEyeColors.Contains(field.Value)) {
-                            isValid = true;
-                        }
-                        else {
-                            isValid = false;
+                        if (!validEyeColors.Contains(field.Value)) {
+                            hasError = true;
                         }
                         break;
 
                     case "pid":
-                        if (Regex.IsMatch(field.Value, pidMatch)) {
-                            isValid = true;
+                        if (!Regex.IsMatch(field.Value, pidMatch)) {
+                            hasError = true;
                         }
                         else {
-                            isValid = false;
+                            hasError = false;
                         }
                         break;
 
+                    case "cid":
+                        break;
 
                     default:
+                        hasError = true;
                         break;
+
+                }
+
+                if (hasError) {
+
+                    return false;
 
                 }
 
             }
 
-            return isValid;
+            return true;
 
         }       
 
