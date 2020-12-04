@@ -1,8 +1,54 @@
 using System.Collections.Generic;
+using System;
 
 namespace adventOfCode2020 {
 
     class day4 : dayBase {
+
+
+        private List<passport> gatherPassports(string[] input) {
+
+            List<passport> result = new List<passport>();
+            long currentLine = 0;
+            passport newPass = new passport();
+
+            while (currentLine < input.Length) {
+
+                if (input[currentLine] != "") {
+
+                    string[] lineArray = input[currentLine].Split(" ");
+                    foreach (string data in lineArray) {
+
+                        string[] kvp = data.Split(":");
+                        newPass.addPassportEntry(kvp[0], kvp[1]);
+
+                    }
+
+                }
+                else {
+
+                    result.Add(newPass);
+                    newPass = new passport();
+
+                }
+
+                ++currentLine;
+
+            }
+
+            return result;
+
+        } 
+
+        private bool validateFields(passport input) {
+
+            foreach (KeyValuePair<string, string> field in input.getFields()) {
+
+                
+
+            }
+
+        }       
 
         public override long partOne(List<string> input)
         {
@@ -12,6 +58,84 @@ namespace adventOfCode2020 {
         public override long partTwo(List<string> input)
         {
             throw new System.NotImplementedException();
+        }
+
+        public long partOne(List<passport> input, List<string> necessaryFields) {
+
+            List<passport> validPasses = new List<passport>();
+
+            foreach (passport pass in input) {
+
+                bool passValid = validateFields(pass);
+
+                if (passValid) {
+
+                    validPasses.Add(pass);
+
+                }
+
+            }
+
+            return validPasses.Count;
+
+        }
+
+        public long partTwo(List<passport> input, List<string> necessaryFields) {
+
+            List<passport> validPasses = new List<passport>();
+
+            foreach (passport pass in input) {
+
+                bool passValid = true;
+
+                foreach (string field in necessaryFields) {
+
+                    if (!pass.getFields().ContainsKey(field)) {
+
+                        passValid = false;
+
+                    }
+
+                }
+
+                if (passValid) {
+
+                    validPasses.Add(pass);
+
+                }
+
+            }
+
+            return validPasses.Count;
+
+        }
+
+        public override void dayRun(int day, string input) {
+
+            lineReader read = new lineReader();
+            resultWriter write = new resultWriter();
+            performanceTime timer = new performanceTime();
+
+            string text = System.IO.File.ReadAllText(input);
+            string[] lines = text.Split("\n");
+
+            List<passport> passportData = gatherPassports(lines);
+
+            string[] necessaryFields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
+
+            TimeSpan timer1 = timer.measuredTime(() => partOne(passportData,new List<string>(necessaryFields)));
+            //TimeSpan timer2 = timer.measuredTime(() => partTwo(passportData,new List<string>(necessaryFields), new List<string>(optionalFields)));
+
+            long result = partOne(passportData,new List<string>(necessaryFields));
+            //long resultPartTwo = partTwo(passportData,new List<string>(necessaryFields), new List<string>(optionalFields));
+
+            write.timesTaken.Add(timer1);
+            //write.timesTaken.Add(timer2);
+            write.partResults.Add("part one", result.ToString());
+            //write.partResults.Add("Part two", resultPartTwo.ToString());
+
+            write.writeResults(day);
+
         }
 
     }
