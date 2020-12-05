@@ -82,6 +82,12 @@ namespace adventOfCode2020
                 Console.WriteLine(e);
 
             }
+            catch (System.NotImplementedException e) {
+
+                Console.WriteLine("functions not yet implemented. better get going ;)");
+                Console.WriteLine(e);
+
+            }
             
 
         }

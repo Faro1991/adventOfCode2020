@@ -15,7 +15,7 @@ namespace adventOfCode2020 {
 
             while (currentLine < input.Length) {
 
-                if (input[currentLine] != "") {
+                if (input[currentLine] != "" && input[currentLine] != "\r") {
 
                     string[] lineArray = input[currentLine].Split(" ");
                     foreach (string data in lineArray) {
