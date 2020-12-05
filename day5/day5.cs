@@ -115,6 +115,8 @@ namespace adventOfCode2020 {
 
             }
 
+            seatIds.Sort();
+
             return seatIds;
 
         }
@@ -132,8 +134,6 @@ namespace adventOfCode2020 {
             List<long> boardingPasses = listBoardingPasses(input);
             List<long> missingPasses = new List<long>();
             long result = 0;
-
-            boardingPasses.Sort();
 
             long counter = boardingPasses.First();
 
