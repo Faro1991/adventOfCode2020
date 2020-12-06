@@ -22,7 +22,16 @@ namespace adventOfCode2020 {
 
             foreach (TimeSpan time in timesTaken) {
 
-                Console.WriteLine("Time taken (part " + (timesTaken.IndexOf(time) + 1) + "): " + time);
+                if (time.TotalMilliseconds < 1000) {
+
+                    Console.WriteLine("Time taken (part " + (timesTaken.IndexOf(time) + 1) + "): " + time.TotalMilliseconds + "ms");
+
+                }
+                else {
+
+                     Console.WriteLine("Time taken (part " + (timesTaken.IndexOf(time) + 1) + "): " + time + "s");
+
+                }
 
             }
 
