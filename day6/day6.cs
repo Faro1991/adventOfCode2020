@@ -46,7 +46,6 @@ namespace adventOfCode2020 {
             List<string> result = new List<string>();
             long currentLine = 0;
             List<string> answers = new List<string>();
-            string commonAnswersPerGroup = "";
             
             while (currentLine < input.Length) {
 
@@ -57,7 +56,7 @@ namespace adventOfCode2020 {
                 }
                 else {
 
-                    commonAnswersPerGroup = answers[0];
+                    string commonAnswersPerGroup = answers[0];
                     answers.RemoveAt(0);
 
                     if (answers.Count > 0) {
@@ -75,7 +74,6 @@ namespace adventOfCode2020 {
 
                     result.Add(commonAnswersPerGroup);
                     answers.Clear();
-                    commonAnswersPerGroup = "";
 
                 }
 
