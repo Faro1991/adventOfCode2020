@@ -22,6 +22,9 @@ namespace adventOfCode2020
             day5 fifthDay = new day5();
             fifthDay.dayRun(5, @"Day5\inputDay5.txt");
 
+            day6 sixthDay = new day6();
+            sixthDay.dayRun(6, @"Day6\inputDay6.txt");
+
         }
 
 

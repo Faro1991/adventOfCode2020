@@ -6,7 +6,7 @@ namespace adventOfCode2020 {
 
         public List<string> gatherLines(string lines) {
 
-            return new List<string>(lines.Split("\n"));
+            return new List<string>(lines.TrimEnd('\r').Split("\n"));
 
         }
 
