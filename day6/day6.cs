@@ -143,8 +143,8 @@ namespace adventOfCode2020 {
                 List<string> answersPerGroup = gatherAnswersPerGroup(lines);
                 List<string> commonAnswersPerGroup = gatherCommonAnswersPerGroup(lines);
 
-                TimeSpan timer1 = timer.measuredTime(() => partOne(answersPerGroup));
-                TimeSpan timer2 = timer.measuredTime(() => partTwo(commonAnswersPerGroup));
+                TimeSpan timer1 = timer.measuredTime(() => partOne(answersPerGroup)) + timer.measuredTime(() => gatherAnswersPerGroup(lines));
+                TimeSpan timer2 = timer.measuredTime(() => partTwo(commonAnswersPerGroup)) + timer.measuredTime(() => gatherCommonAnswersPerGroup(lines));
 
                 long result = partOne(answersPerGroup);
                 long resultPartTwo = partTwo(commonAnswersPerGroup);
