@@ -29,7 +29,7 @@ namespace adventOfCode2020 {
                 }
                 else {
 
-                     Console.WriteLine("Time taken (part " + (timesTaken.IndexOf(time) + 1) + "): " + time + "s");
+                     Console.WriteLine("Time taken (part " + (timesTaken.IndexOf(time) + 1) + "): " + time.Seconds + "s");
 
                 }
 
