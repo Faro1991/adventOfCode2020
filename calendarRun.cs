@@ -34,6 +34,12 @@ namespace adventOfCode2020
             day9 ninthDay = new day9();
             ninthDay.dayRun(9, @"Day9\inputDay9.txt");
 
+            day10 tenthDay = new day10();
+            tenthDay.dayRun(10, @"Day10\inputDay10.txt");
+
+            day11 eleventhDay = new day11();
+            eleventhDay.dayRun(11, @"Day11\inputDay11.txt");
+
         }
 
 
